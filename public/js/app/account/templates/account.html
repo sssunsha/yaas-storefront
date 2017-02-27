@@ -110,6 +110,15 @@
      <div class="container-fluid">
       <div class="section-headline clearfix">
         <h2>{{'WISHLIST' | translate}}</h2>
+            <button id="add-address-btn" class="btn btn-secondary btn-md pull-right" ng-click="openAddressModal()">
+              {{'TOTAL_PRICE' | translate}}
+            </button>
+      
+      
+      <p ng-if="!orders.length && orders.headers">{{'NO_ORDERS' | translate}}</p>
+      <p ng-if="!orders.length && !orders.headers">{{'FAIL_ORDER' | translate}}</p>
+      
+      
       </div>
       </div>
     </section>

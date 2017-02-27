@@ -151,26 +151,26 @@ angular.module('ds.products')
             };
             
             /** Add the product to the wishlist.  'Buy' button is disabled while cart update is in progress. */
-            $scope.addToWishlistFromDetailPage = function () {
-                $scope.error = false;
-                $scope.buyButtonEnabled = false;
-
-                var wishItem = {id:$scope.product.id};
-
-                if(!_.isEmpty($scope.selectedVariant)){
-                	wishItem.itemYrn = $scope.selectedVariant.yrn;
-                }
-
-                wishlistSvc.addProductToCart(wishItem, $scope.product.prices, $scope.productDetailQty, { closeCartAfterTimeout: true, opencartAfterEdit: false })
-                .then(function(){
-                    var productsAddedToCart = $filter('translate')('PRODUCTS_ADDED_TO_WISHLIST');
-                    Notification.success({message: $scope.productDetailQty + ' ' + productsAddedToCart, delay: 3000});
-                }, function(){
-                    $scope.error = 'ERROR_ADDING_TO_WISHLIST';
-                }).finally(function() {
-                    $scope.buyButtonEnabled = true;
-                });
-            };
+//            $scope.addToWishlistFromDetailPage = function () {
+//                $scope.error = false;
+//                $scope.buyButtonEnabled = false;
+//
+//                var wishItem = {id:$scope.product.id};
+//
+//                if(!_.isEmpty($scope.selectedVariant)){
+//                	wishItem.itemYrn = $scope.selectedVariant.yrn;
+//                }
+//
+//                wishlistSvc.addProductToCart(wishItem, $scope.product.prices, $scope.productDetailQty, { closeCartAfterTimeout: true, opencartAfterEdit: false })
+//                .then(function(){
+//                    var productsAddedToCart = $filter('translate')('PRODUCTS_ADDED_TO_WISHLIST');
+//                    Notification.success({message: $scope.productDetailQty + ' ' + productsAddedToCart, delay: 3000});
+//                }, function(){
+//                    $scope.error = 'ERROR_ADDING_TO_WISHLIST';
+//                }).finally(function() {
+//                    $scope.buyButtonEnabled = true;
+//                });
+//            };
 
             $scope.changeQty = function () {
                 if (!$scope.productDetailQty){
