@@ -17,8 +17,8 @@ angular.module('ds.products')
      * Listens to the 'cart:updated' event.  Once the item has been added to the cart, and the updated
      * cart information has been retrieved from the service, the 'cart' view will be shown.
      */
-    .controller('ProductDetailCtrl', ['$scope', '$rootScope', '$location', 'CartSvc', 'product', 'lastCatId', 'variantId', 'GlobalData', 'CategorySvc','$filter', '$uibModal', 'shippingZones', 'Notification', 'ProductExtensionHelper', 'ProductVariantsHelper', 'variants', 'variantPrices', 'productFactory', 'FeeSvc',
-        function($scope, $rootScope, $location, CartSvc, product, lastCatId, variantId, GlobalData, CategorySvc, $filter, $uibModal, shippingZones, Notification, ProductExtensionHelper, ProductVariantsHelper, variants, variantPrices, productFactory, FeeSvc) {
+    .controller('ProductDetailCtrl', ['$scope', '$rootScope', '$location', 'WishlistSvc', 'CartSvc', 'product', 'lastCatId', 'variantId', 'GlobalData', 'CategorySvc','$filter', '$uibModal', 'shippingZones', 'Notification', 'ProductExtensionHelper', 'ProductVariantsHelper', 'variants', 'variantPrices', 'productFactory', 'FeeSvc',
+        function($scope, $rootScope, $location, WishlistSvc, CartSvc, product, lastCatId, variantId, GlobalData, CategorySvc, $filter, $uibModal, shippingZones, Notification, ProductExtensionHelper, ProductVariantsHelper, variants, variantPrices, productFactory, FeeSvc) {
             var modalInstance;
 
             $scope.activeTab = 'description';
@@ -151,26 +151,28 @@ angular.module('ds.products')
             };
             
             /** Add the product to the wishlist.  'Buy' button is disabled while cart update is in progress. */
-//            $scope.addToWishlistFromDetailPage = function () {
-//                $scope.error = false;
-//                $scope.buyButtonEnabled = false;
-//
-//                var wishItem = {id:$scope.product.id};
-//
-//                if(!_.isEmpty($scope.selectedVariant)){
-//                	wishItem.itemYrn = $scope.selectedVariant.yrn;
-//                }
-//
-//                wishlistSvc.addProductToCart(wishItem, $scope.product.prices, $scope.productDetailQty, { closeCartAfterTimeout: true, opencartAfterEdit: false })
-//                .then(function(){
-//                    var productsAddedToCart = $filter('translate')('PRODUCTS_ADDED_TO_WISHLIST');
-//                    Notification.success({message: $scope.productDetailQty + ' ' + productsAddedToCart, delay: 3000});
-//                }, function(){
-//                    $scope.error = 'ERROR_ADDING_TO_WISHLIST';
-//                }).finally(function() {
-//                    $scope.buyButtonEnabled = true;
-//                });
-//            };
+            $scope.addToWishlist = function () {
+                var newWishlist = {
+                    id: 'defaultWishlistId',
+                    owner: 'wishlistOwner@hybris.com',
+                    title: 'defaultWishlistTitle',
+                    items: [
+                        {
+                        	product: $scope.product.id,
+                        	amount: $scope.product.prices[0].originalAmount,
+                        	note: $scope.product.prices[0].currency,
+                        	createdAt: new Date()
+                        }
+                        	]
+                };
+                WishlistSvc.createWishlist(newWishlist).then(
+                		function() {
+                			var productsAddedToWish = $filter('translate')('PRODUCTS_ADDED_TO_WISHLIST');
+                			Notification.success({message: $scope.productDetailQty + ' ' + productsAddedToWish, delay: 3000});
+                		}, function(){
+                			$scope.error = 'ERROR_ADDING_TO_WISHLIST';
+                		}).finally(function() {});
+            };
 
             $scope.changeQty = function () {
                 if (!$scope.productDetailQty){

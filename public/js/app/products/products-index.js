@@ -19,6 +19,7 @@ angular.module('ds.products', [
     'ds.cart',
     'ds.fees',
     'ui.bootstrap',
-    'angularMoment'
+    'angularMoment',
+    'ds.wishlist'
 ]);
 
