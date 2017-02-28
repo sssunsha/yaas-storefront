@@ -511,6 +511,7 @@
     "FAIL_ORDER": "Orders not available. Try again later.",
     //XFLD
     "NO_ORDERS": "You have no orders stored",
+    "NO_WISHLIST": "You have no wishlist stored",
     //XSEL
     "ORDER_ITEM_COUNT": "{{number}} Item",
     //XSEL

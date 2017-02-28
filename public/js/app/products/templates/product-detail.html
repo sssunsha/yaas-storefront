@@ -79,6 +79,15 @@
                                         </small>
                                     </div>
                                 </div>
+                                
+                                <!-- wishlist error notification -->
+                                <div ng-if="wishlistError" class="col-md-8 col-md-offset-2">
+                                    <div class="error">
+                                        <small class="help-inline has-error">
+                                            {{'ERROR_ADDING_TO_WISHLIST' | translate}}
+                                        </small>
+                                    </div>
+                                </div>
 
                                 <!-- add to cart -->
                                 <div class="col-md-8 col-md-offset-2">

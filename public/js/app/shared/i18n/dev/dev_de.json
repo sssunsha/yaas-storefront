@@ -493,6 +493,7 @@
     "FAIL_ORDER": "Stornierung fehlgeschlagen. Wenden Sie sich an den Kundendienst, oder versuchen Sie es später noch einmal.",
     //XFLD
     "NO_ORDERS": "Sie haben keine Bestellungen gespeichert",
+    "NO_WISHLIST": "You have no wishlist stored",
     //XSEL
     "ORDER_ITEM_COUNT": "{{number}} Position",
     //XSEL

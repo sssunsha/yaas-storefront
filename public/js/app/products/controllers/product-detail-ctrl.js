@@ -152,6 +152,7 @@ angular.module('ds.products')
             
             /** Add the product to the wishlist.  'Buy' button is disabled while cart update is in progress. */
             $scope.addToWishlist = function () {
+            	$scope.wishlistError = false;
                 var newWishlist = {
                     id: 'defaultWishlistId',
                     owner: 'wishlistOwner@hybris.com',
@@ -170,7 +171,7 @@ angular.module('ds.products')
                 			var productsAddedToWish = $filter('translate')('PRODUCTS_ADDED_TO_WISHLIST');
                 			Notification.success({message: $scope.productDetailQty + ' ' + productsAddedToWish, delay: 3000});
                 		}, function(){
-                			$scope.error = 'ERROR_ADDING_TO_WISHLIST';
+                			$scope.wishlistError = 'ERROR_ADDING_TO_WISHLIST';
                 		}).finally(function() {});
             };
 
