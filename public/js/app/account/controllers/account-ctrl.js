@@ -45,15 +45,35 @@ angular.module('ds.account')
             $scope.showAllOrdersButton = true;
             $scope.showOrderButtons = ($scope.orders.length >= $scope.showOrdersDefault);
             $scope.showOrdersFilter = $scope.showOrdersDefault;
+            $scope.isShowTotalPrice = undefined;
 
             // get wishlist items for account page
-            WishlistSvc.wishlistItem('wishlistOwner@hybris.com').then(
+            WishlistSvc.wishlistItem('test@yaas.com').then(
             		function(res){
-            			$scope.wishlists = req._items;
+            			$scope.wishlists = res;
+            			console.log("wishlistItem succeed");
             		},
             		function(){
+            			console.log("wishlistItem faield");
             			$scope.wishlists = [];
             		});
+            
+            $scope.getWishlistPrice = function (){
+            	
+            	if($scope.isShowTotalPrice){
+            		$scope.isShowTotalPrice = undefined;
+            	}
+            	else{
+            		$scope.isShowTotalPrice = true;
+            	}
+            	var price = 0;
+            	angular.forEach($scope.wishlists, function (item) {
+            		price += item.items[0].amount*100;
+                });
+            	$scope.wishlistPrice = price/100;
+            	console.log($scope.wishlistPrice);
+            };
+            
             var extractServerSideErrors = function (response) {
                 var errors = [];
                 if (response.status === 400) {

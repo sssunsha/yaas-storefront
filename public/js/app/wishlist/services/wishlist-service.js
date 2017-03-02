@@ -5,18 +5,20 @@ angular.module('ds.wishlist')
         function(WishlistREST, $q){
     	
     	var getWishListItem = function(parms){
-    		var list = WishlistREST.Wishlist.one('wishlists', parms).get();
+    		parms = parms.replace(".", "_");
+    		parms = parms.replace("@", "_");
+    		var list = WishlistREST.Wishlist.one('wishlist', parms).get();
     		return list;
     	};
     	
     	var getWishListSizes = function(parms){
-    		var size = WishlistREST.Wishlist.one('wishlists', parms).one('size').get();
+    		var size = WishlistREST.Wishlist.one('wishlist_size', parms).get();
     		return size;
     	};
             return {
-                createWishlist: function (newWishlist) {                	
+            	addWishlistItem: function (newWishlist) {                	
                 	var itemDef = $q.defer();
-                    WishlistREST.Wishlist.all('wishlists').post(newWishlist).then(function(){
+                    WishlistREST.Wishlist.all('wishlist').post(newWishlist).then(function(){
                     	itemDef.resolve();
                     }, function(){
                     	itemDef.reject();

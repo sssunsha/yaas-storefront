@@ -333,6 +333,7 @@
 
     //XFLD
     "PRODUCTS": "Products",
+    "PRODUCT": "PRODUCT",
     //XBUT
     "BACK_TO": "Back To",
     //XFLD
@@ -448,6 +449,7 @@
 
     //XTIT
     "UPDATE_ACCOUNT_DETAILS": "Update Account details",
+    "PRICE": "PRICE",
     //XTIT
     "UPDATE_EMAIL": "Update Email",
     //XBUT
