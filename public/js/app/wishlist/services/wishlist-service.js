@@ -7,7 +7,7 @@ angular.module('ds.wishlist')
     	var getWishListItem = function(parms){
     		parms = parms.replace(".", "_");
     		parms = parms.replace("@", "_");
-    		var list = WishlistREST.Wishlist.one('wishlist', parms).get();
+    		var list = WishlistREST.Wishlist.one('wishlists').get();
     		return list;
     	};
     	
@@ -18,7 +18,7 @@ angular.module('ds.wishlist')
             return {
             	addWishlistItem: function (newWishlist) {                	
                 	var itemDef = $q.defer();
-                    WishlistREST.Wishlist.all('wishlist').post(newWishlist).then(function(){
+                    WishlistREST.Wishlist.all('wishlists').post(newWishlist).then(function(){
                     	itemDef.resolve();
                     }, function(){
                     	itemDef.reject();

@@ -157,16 +157,17 @@ angular.module('ds.products')
             	
                 var newWishlist = {
                     id: date.getTime(),
-                    owner: 'test@yaas.com', // TODO: need to change the owner to login address
+                    url: "http://localhost:9000/",
+                    owner: 'Anonymous', // TODO: need to change the owner to login address
                     title: 'wishlist',
+                    description: $scope.product.name,
+                    createdAt: date,
                     items: [
                         {
                         	product: $scope.product.id,
                         	amount: $scope.product.prices[0].originalAmount,
                         	note: $scope.product.prices[0].currency,
-                        	name: $scope.product.name,
-                        	code: $scope.product.code,
-                        	createdAt: date.toLocaleString()
+                        	createdAt: date
                         }
                         	]
                 };
