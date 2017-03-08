@@ -110,9 +110,13 @@
      <div class="container-fluid">
       <div class="section-headline clearfix">
         <h2>{{'WISHLIST' | translate}}</h2>
-            <button id="add-address-btn" class="btn btn-secondary btn-md pull-right" ng-click="getWishlistPrice()">
-              {{'TOTAL_PRICE' | translate}}
-            </button>
+            <div class="pull-right">
+	            <button id="add-address-btn" class="btn btn-secondary btn-md" ng-click="getWishlistPrice()">
+	              {{'TOTAL_PRICE' | translate}}
+	            </button>
+	            <p></p>
+	            <p ng-if="isShowTotalPrice">{{'TOTAL_PRICE' | translate}}: {{wishlistPrice}}</p>
+            </div>
             
       
       
@@ -131,14 +135,11 @@
               <tr ng-repeat="item in wishlists">
                   <td>{{item.items[0].createdAt}}</td>
                   <td>{{item.description}}</a></td>
-                  <td>{{item.items[0].amount}}</td>
-                  <td></td>
+                  <td>{{item.items[0].amount}}</td>             
               </tr>
               <tr>
                   <td></td>
                   <td></td>
-                  <td></td>
-                  <td ng-if="isShowTotalPrice">{{'TOTAL_PRICE' | translate}} : {{wishlistPrice}}</td>
               </tr>
           </tbody>
         </table>
