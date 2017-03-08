@@ -49,29 +49,28 @@ angular.module('ds.account')
 
             // get wishlist items for account page
             WishlistSvc.wishlistItem('Anonymous').then(
-            		function(res){
-            			$scope.wishlists = res;
-            			console.log("wishlistItem succeed");
-            		},
-            		function(){
-            			console.log("wishlistItem faield");
-            			$scope.wishlists = [];
-            		});
+                function(res){
+                    $scope.wishlists = res;
+                    console.log('wishlistItem succeed');
+                },
+                function(){
+                    console.log('wishlistItem faield');
+                    $scope.wishlists = [];
+                });
             
             $scope.getWishlistPrice = function (){
-            	
-            	if($scope.isShowTotalPrice){
-            		$scope.isShowTotalPrice = undefined;
-            	}
-            	else{
-            		$scope.isShowTotalPrice = true;
-            	}
-            	var price = 0;
-            	angular.forEach($scope.wishlists, function (item) {
-            		price += item.items[0].amount*100;
+                if($scope.isShowTotalPrice){
+                    $scope.isShowTotalPrice = undefined;
+                }
+                else{
+                    $scope.isShowTotalPrice = true;
+                }
+                var price = 0;
+                angular.forEach($scope.wishlists, function (item) {
+                    price += item.items[0].amount*100;
                 });
-            	$scope.wishlistPrice = price/100;
-            	console.log($scope.wishlistPrice);
+                $scope.wishlistPrice = price/100;
+                console.log($scope.wishlistPrice);
             };
             
             var extractServerSideErrors = function (response) {

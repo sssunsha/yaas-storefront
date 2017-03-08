@@ -152,32 +152,32 @@ angular.module('ds.products')
             
             /** Add the product to the wishlist.  'Buy' button is disabled while cart update is in progress. */
             $scope.addToWishlist = function () {
-            	$scope.wishlistError = false;
-            	var date = new Date();
-            	
+                $scope.wishlistError = false;
+                var date = new Date();
+                
                 var newWishlist = {
                     id: date.getTime(),
-                    url: "http://localhost:9000/",
+                    url: 'http://localhost:9000/',
                     owner: 'Anonymous', // TODO: need to change the owner to login address
                     title: 'wishlist',
                     description: $scope.product.name,
                     createdAt: date,
                     items: [
                         {
-                        	product: $scope.product.id,
-                        	amount: $scope.product.prices[0].originalAmount,
-                        	note: $scope.product.prices[0].currency,
-                        	createdAt: date
+                            product: $scope.product.id,
+                            amount: $scope.product.prices[0].originalAmount,
+                            note: $scope.product.prices[0].currency,
+                            createdAt: date
                         }
-                        	]
+                            ]
                 };
                 WishlistSvc.addWishlistItem(newWishlist).then(
-                		function() {
-                			var productsAddedToWish = $filter('translate')('PRODUCTS_ADDED_TO_WISHLIST');
-                			Notification.success({message: $scope.productDetailQty + ' ' + productsAddedToWish, delay: 3000});
-                		}, function(){
-                			$scope.wishlistError = 'ERROR_ADDING_TO_WISHLIST';
-                		}).finally(function() {});
+                        function() {
+                            var productsAddedToWish = $filter('translate')('PRODUCTS_ADDED_TO_WISHLIST');
+                            Notification.success({message: $scope.productDetailQty + ' ' + productsAddedToWish, delay: 3000});
+                        }, function(){
+                            $scope.wishlistError = 'ERROR_ADDING_TO_WISHLIST';
+                        }).finally(function() {});
             };
 
             $scope.changeQty = function () {
