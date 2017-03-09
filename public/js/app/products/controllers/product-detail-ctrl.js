@@ -17,8 +17,8 @@ angular.module('ds.products')
      * Listens to the 'cart:updated' event.  Once the item has been added to the cart, and the updated
      * cart information has been retrieved from the service, the 'cart' view will be shown.
      */
-    .controller('ProductDetailCtrl', ['$scope', '$rootScope', '$location', 'WishlistSvc', 'CartSvc', 'product', 'lastCatId', 'variantId', 'GlobalData', 'CategorySvc','$filter', '$uibModal', 'shippingZones', 'Notification', 'ProductExtensionHelper', 'ProductVariantsHelper', 'variants', 'variantPrices', 'productFactory', 'FeeSvc',
-        function($scope, $rootScope, $location, WishlistSvc, CartSvc, product, lastCatId, variantId, GlobalData, CategorySvc, $filter, $uibModal, shippingZones, Notification, ProductExtensionHelper, ProductVariantsHelper, variants, variantPrices, productFactory, FeeSvc) {
+    .controller('ProductDetailCtrl', ['$scope', '$rootScope', '$location', 'WishlistSvc', 'settings', 'CartSvc', 'product', 'lastCatId', 'variantId', 'GlobalData', 'CategorySvc','$filter', '$uibModal', 'shippingZones', 'Notification', 'ProductExtensionHelper', 'ProductVariantsHelper', 'variants', 'variantPrices', 'productFactory', 'FeeSvc',
+        function($scope, $rootScope, $location, WishlistSvc, settings, CartSvc, product, lastCatId, variantId, GlobalData, CategorySvc, $filter, $uibModal, shippingZones, Notification, ProductExtensionHelper, ProductVariantsHelper, variants, variantPrices, productFactory, FeeSvc) {
             var modalInstance;
 
             $scope.activeTab = 'description';
@@ -150,15 +150,26 @@ angular.module('ds.products')
                 });
             };
             
+            
             /** Add the product to the wishlist.  'Buy' button is disabled while cart update is in progress. */
             $scope.addToWishlist = function () {
                 $scope.wishlistError = false;
                 var date = new Date();
                 
+                var userAddress;
+                if(angular.isObject(GlobalData.customerAccount) && !angular.isUndefined(GlobalData.customerAccount.contactEmail)){
+                    userAddress = GlobalData.customerAccount.contactEmail;
+                    settings.hybrisUser = userAddress;
+                }
+                else{
+                    userAddress = settings.hybrisUser;
+                }
+                
+                
                 var newWishlist = {
                     id: date.getTime(),
                     url: 'http://localhost:9000/',
-                    owner: 'Anonymous', // TODO: need to change the owner to login address
+                    owner: userAddress,
                     title: 'wishlist',
                     description: $scope.product.name,
                     createdAt: date,
@@ -171,6 +182,8 @@ angular.module('ds.products')
                         }
                             ]
                 };
+                
+                
                 WishlistSvc.addWishlistItem(newWishlist).then(
                         function() {
                             var productsAddedToWish = $filter('translate')('PRODUCTS_ADDED_TO_WISHLIST');

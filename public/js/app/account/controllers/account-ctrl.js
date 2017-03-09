@@ -48,7 +48,7 @@ angular.module('ds.account')
             $scope.isShowTotalPrice = undefined;
 
             // get wishlist items for account page
-            WishlistSvc.wishlistItem('Anonymous').then(
+            WishlistSvc.wishlistItem().then(
                 function(res){
                     $scope.wishlists = res;
                     console.log('wishlistItem succeed');

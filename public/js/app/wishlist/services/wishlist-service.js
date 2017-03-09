@@ -1,12 +1,15 @@
 'use strict';
 
 angular.module('ds.wishlist')
-    .factory('WishlistSvc', ['WishlistREST', '$q',
-        function(WishlistREST, $q){
+    .factory('WishlistSvc', ['WishlistREST', 'settings', 'GlobalData', '$q',
+        function(WishlistREST, settings, GlobalData, $q){
     
-        var getWishListItem = function(parms){
-            parms = parms.replace('.', '_');
-            parms = parms.replace('@', '_');
+        var getWishListItem = function(){
+            // first check the login user address
+            if(angular.isObject(GlobalData.customerAccount) && !angular.isUndefined(GlobalData.customerAccount.contactEmail)){
+                settings.hybrisUser = GlobalData.customerAccount.contactEmail;
+            }
+            
             var list = WishlistREST.Wishlist.one('wishlists').get();
             return list;
         };
